@@ -1,0 +1,7 @@
+Loading data
+CSV reading completed, parsing data
+Articles by Janaína E Luiz
+Articles by Thiago Seike Nakahara
+Articles by Vinicius Carvalho
+	Addition of mechanically processed cellulosic fibers to ionomer cement: mechanical properties. Date: 27/01/2015
+	Apoplastic and intracellular plant sugars regulate developmental transitions in witches' broom disease of cacao. Date: 24/12/2014
