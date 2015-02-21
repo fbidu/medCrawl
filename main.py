@@ -22,7 +22,7 @@ PU = PubmedUtils.PubMedUtils(email="bidu.pub@gmail.com")
 MODE = "fullArticles"
 
 # debug mode (2), normal mode (1), silent mode (0)
-DEBUG = 1
+DEBUG = 2
 
 # List with the columns with data to be gathered
 COLUMN_WITH_AUTHORS = [1, 4]
@@ -64,6 +64,9 @@ def list_names(row, dates):
         else:
             # If the name is valid,
             # we'll try to find the first date it occurred
+            if row[0] == '':
+                continue
+
             current_date = datetime.datetime.strptime(
                 row[0],
                 "%d/%m/%Y %H:%M:%S").date()
@@ -90,14 +93,24 @@ def get_articles_by_researcher(articles_ids, res):
         # Looping through the acquired data
         for data in raw_article:
             # Extracting the MedLine[Article] section
-            md_article = data['Medline']['Article']
+            md_article = data['MedlineCitation']['Article']
+
             # Extracting the title
-            title = md_article['ArticleTitle'].decode('utf8')
+            title = md_article['ArticleTitle']
+
+            try:
+                title = title.decode('utf8')
+            except UnicodeEncodeError:
+                pass
 
             # Extracting the abstract
             try:
                 abstract = md_article['Abstract']['AbstractText'][0]
-                abstract = abstract.decode('utf8')
+                try:
+                    abstract = abstract.decode('utf8')
+                except UnicodeEncodeError:
+                    pass
+
             except KeyError:
                 abstract = "Abstract not available"
 
@@ -144,7 +157,7 @@ def main():
 
             # Looping through all the rows of the file
             for row in data_reader:
-                dates += list_names(row, dates)
+                dates.update(list_names(row, dates))
 
             names = dates.keys()
             names.sort()
@@ -158,7 +171,7 @@ def main():
                 articles_ids = []
 
                 # Instantiating a new researcher
-                res = Researcher.Researcher(name=researcher.decode("utf8"))
+                res = Researcher.Researcher(name=researcher)
 
                 print "Getting articles by " + researcher if DEBUG else 0
 
@@ -174,7 +187,8 @@ def main():
                 if MODE == 'fullArticles':
                     get_articles_by_researcher(articles_ids, res)
 
-                researchers.append(res)
+                if len(res.articles) > 0:
+                    researchers.append(res)
 
             # Loading the template
             template = ENV.get_template('template.html')
