@@ -11,7 +11,7 @@
 					{% for article in researcher.articles %}
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term={{article.id}}">{{article.title}}</a>
+								<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term={{article.pubmed_id}}">{{article.title}}</a>
 							</div>
 			  				<div class="panel-body">
 								<small>{{article.abstract}}</small>

@@ -7,7 +7,7 @@ import sys
 from datetime import datetime
 
 try:
-    from Bio import Entrez
+    from Bio import Entrez as E
 except ImportError:
     print "Biopython not found!"
     sys.exit(1)
@@ -30,12 +30,12 @@ class PubMedUtils(object):
         article id'd by pubmed_id
         """
 
-        fetcher = Entrez.efetch(db="pubmed", id=pubmed_id, retmode="xml")
-        return Entrez.parse(fetcher)
+        fetcher = E.efetch(db="pubmed", id=pubmed_id, retmode="xml")
+        return E.parse(fetcher)
 
     def get_articles_in_range_by_author(self, author,
-                                   range_start, range_end='',
-                                   terms=''):
+                                        range_start, range_end='',
+                                        terms=''):
         """
         This function returns all of the article IDs
         of the articles a given 'author' published
@@ -47,11 +47,11 @@ class PubMedUtils(object):
             range_end = "%s/%s" % (str(datetime.today().year),
                                    str(datetime.today().month))
 
-        Entrez.email = self.email
+        E.email = self.email
         term = "%s [AU] %s:%s[DP] %s" % (author, range_start, range_end, terms)
-        print term
-        handle = Entrez.esearch(db="pubmed", term=term)
-        record = Entrez.read(handle)
+
+        handle = E.esearch(db="pubmed", term=term)
+        record = E.read(handle)
         handle.close()
 
         articles = []
