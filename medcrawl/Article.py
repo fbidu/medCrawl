@@ -9,7 +9,7 @@ class Article(object):
     pubmed_id = ""
     title = ""
     abstract = ""
-    keywords = ""
+    keywords = []
 
     def __init__(self, pubmed_id, title, abstract, keywords):
         self.pubmed_id = str(pubmed_id)
