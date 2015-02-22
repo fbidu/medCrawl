@@ -1,5 +1,7 @@
-data/confocal.tsv*
-data/confocal.csv*
+confocal.tsv*
+confocal.csv*
 data/*
 *.html*
 *.lst*
+*.swp*
+*.pyc
