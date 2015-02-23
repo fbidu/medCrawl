@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Articles that might be related to Confocal</title>
+		<title>Articles that might be related to {{title}}</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	</head>
 	<body>
@@ -16,7 +16,7 @@
 			  				<div class="panel-body">
 								<small>{{article.abstract}}</small>
 			  				</div>
-			  				<div class="panel-footer"></div>
+			  				<div class="panel-footer">{{article.get_keywords()}}</div>
 						</div>
 					{% endfor %}
 				{% endfor %}
