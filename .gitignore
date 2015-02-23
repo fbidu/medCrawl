@@ -5,3 +5,5 @@ data/*
 *.lst*
 *.swp*
 *.pyc
+*.csv*
+*.*~
