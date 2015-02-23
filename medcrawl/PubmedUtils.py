@@ -58,5 +58,5 @@ class PubMedUtils(object):
         for article_id in record['IdList']:
             if article_id not in articles:
                 articles.append(article_id)
-
+        print "got %d articles" % len(articles)
         return articles
