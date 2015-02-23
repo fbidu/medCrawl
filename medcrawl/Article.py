@@ -23,4 +23,4 @@ class Article(object):
 
     def get_keywords(self):
         """Returns the article's keywords"""
-        return self.keywords
+        return "; ".join(self.keywords)
